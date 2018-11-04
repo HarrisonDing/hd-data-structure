@@ -7,6 +7,7 @@
 //============================================================================
 
 #include <iostream>
+#include <cstring>
 using namespace std;
 
 typedef int ElementData;
@@ -20,13 +21,14 @@ struct StackNode {
 
 Stack init_stack(void);
 void delete_stack(Stack);
-ElementData top(Stack);
 void push(Stack, ElementData);
 ElementData pop(Stack);
 int is_null(Stack);
 
 int main() {
 	cout << "!!! Start Stack Test !!!" << endl;
+	auto func =
+			[](auto val) -> string {if(val == 1) return "true"; else return "false";};
 
 	Stack st = init_stack();
 
@@ -34,14 +36,17 @@ int main() {
 	push(st, 2);
 	push(st, 3);
 
-	cout << "Stack is null? " << is_null(st) << endl;
+	cout << "Stack is null? "
+			<< func(is_null(st)) << endl;
 
 	for (int i = 0; i < 3; i++) {
 		ElementData data = pop(st);
 		cout << "pop: " << data << endl;
 	}
 
-	cout << "Stack is null? " << is_null(st) << endl;
+	cout << "Stack is null? "
+			<< func(is_null(st))
+			<< endl;
 	delete_stack(st);
 	return 0;
 }
@@ -61,10 +66,6 @@ void delete_stack(Stack st) {
 	}
 
 	delete st;
-}
-
-ElementData top(Stack st) {
-	return st->next->element;
 }
 
 void push(Stack st, ElementData data) {
